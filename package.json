@@ -22,8 +22,9 @@
 	},
 	"homepage": "https://github.com/Michaelleojacob/booklistv1#readme",
 	"dependencies": {
-		"webpack-cli": "^4.7.2",
-		"@fortawesome/fontawesome-free": "^5.15.3"
+		"@fortawesome/fontawesome-free": "^5.15.3",
+		"bootstrap": "^5.0.2",
+		"webpack-cli": "^4.7.2"
 	},
 	"devDependencies": {
 		"css-loader": "^6.2.0",
