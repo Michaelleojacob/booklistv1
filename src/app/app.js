@@ -51,6 +51,7 @@ export default function myapp() {
 	class AlertArea {
 		static makeAlertDivArea() {
 			this.alertDiv = document.createElement('div');
+			this.alertDiv.setAttribute('id', 'alertDiv');
 			const form = document.querySelector('#book-form');
 			form.prepend(this.alertDiv);
 		}
@@ -71,6 +72,7 @@ export default function myapp() {
 	}
 	AlertArea.makeAlertDivArea();
 	AlertArea.showAlertAndAddText('hi', 'success');
+	AlertArea.removeAlertAndText();
 	//Store class: handles Storage
 	//event: display Books
 	document.addEventListener('DOMContentLoaded', UI.displayBooks);
