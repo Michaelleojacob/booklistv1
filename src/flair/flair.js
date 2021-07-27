@@ -4,17 +4,21 @@ import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
 
-export default function myfooter(parent) {
+export default function myfooter() {
 	'use strict';
 	(function () {
 		const footer = {
 			init: function () {
+				this.cacheDom();
 				this.footerwrapper();
+			},
+			cacheDom: function () {
+				this.content = document.querySelector('.footer');
 			},
 			footerwrapper: function () {
 				this.fwrapper = document.createElement('div');
 				this.fwrapper.classList.add('fwrapper');
-				this.parent.appendChild(this.fwrapper);
+				this.content.appendChild(this.fwrapper);
 				this.renderElements();
 			},
 			renderElements: function () {
