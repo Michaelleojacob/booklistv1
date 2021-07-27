@@ -42,6 +42,11 @@ export default function myapp() {
 
 			list.appendChild(row);
 		}
+		static clearFields() {
+			document.querySelector('#title').value = '';
+			document.querySelector('#author').value = '';
+			document.querySelector('#pages').value = '';
+		}
 	}
 
 	//Store class: handles Storage
@@ -50,6 +55,19 @@ export default function myapp() {
 	document.addEventListener('DOMContentLoaded', UI.displayBooks);
 
 	//event: add a Book
+	document.querySelector('#book-form').addEventListener('submit', e => {
+		e.preventDefault();
+		//get form values
+		const title = document.querySelector('#title').value;
+		const author = document.querySelector('#author').value;
+		const pages = document.querySelector('#pages').value;
+		//instantiate book
+		const book = new Book(title, author, pages);
+		//add book to ui
+		UI.addBookToList(book);
+		//clear fields
+		UI.clearFields();
+	});
 
 	//event:remove a Book
 }
