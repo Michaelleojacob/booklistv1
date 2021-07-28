@@ -11,20 +11,21 @@ export default function myapp() {
 	//UI class: handle UI tasks
 	class UI {
 		static displayBooks() {
-			const StoredBooks = [
-				{
-					title: 'Book one',
-					author: 'John Doe',
-					pages: '50',
-				},
-				{
-					title: 'Book two',
-					author: 'Jane Doe',
-					pages: '75',
-				},
-			];
-			const books = StoredBooks;
-			books.forEach(book => UI.addBookToList(book));
+			// let books = Storage.getBooks();
+			// books.forEach(book => UI.addBookToList(book));
+			// const StoredBooks = [
+			// 	{
+			// 		title: 'Book one',
+			// 		author: 'John Doe',
+			// 		pages: '50',
+			// 	},
+			// 	{
+			// 		title: 'Book two',
+			// 		author: 'Jane Doe',
+			// 		pages: '75',
+			// 	},
+			// ];
+			// const books = StoredBooks;
 		}
 		static addBookToList(book) {
 			const list = document.querySelector('#book-list');
@@ -62,14 +63,25 @@ export default function myapp() {
 			this.alertDiv.className = '';
 			this.alertDiv.textContent = '';
 		}
-		static showAlertAndAddText(str, info) {
+		static addSetTimeOut() {
+			this.myVar = setTimeout(() => {
+				AlertArea.removeAlertAndText();
+			}, 3000);
+		}
+		static clearSetTimeOut() {
+			clearTimeout(this.myVar);
+		}
+		static showAlert(str, info) {
 			AlertArea.removeAlertAndText();
+			AlertArea.clearSetTimeOut();
 			this.alertDiv.classList.add('alert', `alert-${info}`);
 			this.alertDiv.textContent = str;
+			AlertArea.addSetTimeOut();
 		}
 	}
 	AlertArea.makeAlertDivArea();
 	//Store class: handles Storage
+
 	//event: display Books
 	document.addEventListener('DOMContentLoaded', UI.displayBooks);
 	//event: add a Book
@@ -81,22 +93,23 @@ export default function myapp() {
 		const pages = document.querySelector('#pages').value;
 		//validate
 		if (title === '') {
-			return AlertArea.showAlertAndAddText('Title is empty', 'danger');
+			return AlertArea.showAlert('Title is empty', 'danger');
 		}
 		if (author === '') {
-			return AlertArea.showAlertAndAddText('Author is empty', 'danger');
+			return AlertArea.showAlert('Author is empty', 'danger');
 		}
 		if (pages === '') {
-			return AlertArea.showAlertAndAddText('Pages is empty', 'danger');
+			return AlertArea.showAlert('Pages is empty', 'danger');
 		}
 		if (isNaN(pages) === true) {
-			return AlertArea.showAlertAndAddText('Pages is not a number', 'danger');
+			return AlertArea.showAlert('Pages is not a number', 'danger');
 		} else {
 			//instantiate book
 			const book = new Book(title, author, pages);
 			//add book to ui
 			UI.addBookToList(book);
-			AlertArea.showAlertAndAddText('Book successfully added', 'success');
+			//alert book was added
+			AlertArea.showAlert('Book successfully added', 'success');
 			//clear fields
 			UI.clearFields();
 		}
@@ -104,5 +117,6 @@ export default function myapp() {
 	//event:remove a Book
 	document.querySelector('#book-list').addEventListener('click', e => {
 		UI.deleteBook(e.target);
+		AlertArea.showAlert('Book was successfully removed', 'info');
 	});
 }
