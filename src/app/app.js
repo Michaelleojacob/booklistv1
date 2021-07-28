@@ -11,21 +11,8 @@ export default function myapp() {
 	//UI class: handle UI tasks
 	class UI {
 		static displayBooks() {
-			// let books = Storage.getBooks();
-			// books.forEach(book => UI.addBookToList(book));
-			// const StoredBooks = [
-			// 	{
-			// 		title: 'Book one',
-			// 		author: 'John Doe',
-			// 		pages: '50',
-			// 	},
-			// 	{
-			// 		title: 'Book two',
-			// 		author: 'Jane Doe',
-			// 		pages: '75',
-			// 	},
-			// ];
-			// const books = StoredBooks;
+			const books = Store.getBooks();
+			books.forEach(book => UI.addBookToList(book));
 		}
 		static addBookToList(book) {
 			const list = document.querySelector('#book-list');
@@ -80,7 +67,31 @@ export default function myapp() {
 		}
 	}
 	AlertArea.makeAlertDivArea();
-	//Store class: handles Storage
+	class Store {
+		static getBooks() {
+			let books;
+			if (localStorage.getItem('books') === null) {
+				books = [];
+			} else {
+				books = JSON.parse(localStorage.getItem('books'));
+			}
+			return books;
+		}
+		static addBook(book) {
+			const books = Store.getBooks();
+			books.push(book);
+			localStorage.setItem('books', JSON.stringify(books));
+		}
+		static removeBook(title) {
+			const books = Store.getBooks();
+			books.forEach((book, index) => {
+				if (book.title === title) {
+					books.splice(index, 1);
+				}
+			});
+			localStorage.setItem('books', JSON.stringify(books));
+		}
+	}
 
 	//event: display Books
 	document.addEventListener('DOMContentLoaded', UI.displayBooks);
@@ -108,6 +119,7 @@ export default function myapp() {
 			const book = new Book(title, author, pages);
 			//add book to ui
 			UI.addBookToList(book);
+			Store.addBook(book);
 			//alert book was added
 			AlertArea.showAlert('Book successfully added', 'success');
 			//clear fields
@@ -116,7 +128,12 @@ export default function myapp() {
 	});
 	//event:remove a Book
 	document.querySelector('#book-list').addEventListener('click', e => {
-		UI.deleteBook(e.target);
-		AlertArea.showAlert('Book was successfully removed', 'info');
+		if (e.target.className.includes('delete')) {
+			UI.deleteBook(e.target);
+			Store.removeBook(
+				e.target.parentElement.parentElement.children[0].textContent
+			);
+			AlertArea.showAlert('Book was successfully removed', 'info');
+		}
 	});
 }
