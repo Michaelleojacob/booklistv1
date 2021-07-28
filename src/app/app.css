@@ -1,4 +1,4 @@
 #alertDiv {
-	height: 40px;
+	min-height: 35px;
 	display: block;
 }

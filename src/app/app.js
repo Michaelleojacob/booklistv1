@@ -63,16 +63,12 @@ export default function myapp() {
 			this.alertDiv.textContent = '';
 		}
 		static showAlertAndAddText(str, info) {
+			AlertArea.removeAlertAndText();
 			this.alertDiv.classList.add('alert', `alert-${info}`);
 			this.alertDiv.textContent = str;
-			// setTimeout(() => {
-			// 	AlertArea.removeAlertAndText();
-			// }, 3000);
 		}
 	}
 	AlertArea.makeAlertDivArea();
-	AlertArea.showAlertAndAddText('hi', 'success');
-	AlertArea.removeAlertAndText();
 	//Store class: handles Storage
 	//event: display Books
 	document.addEventListener('DOMContentLoaded', UI.displayBooks);
@@ -84,16 +80,23 @@ export default function myapp() {
 		const author = document.querySelector('#author').value;
 		const pages = document.querySelector('#pages').value;
 		//validate
-		if (title === '' || author === '' || pages === '') {
-			return AlertArea.showAlertAndAddText(
-				'Please fill in all fields',
-				'danger'
-			);
+		if (title === '') {
+			return AlertArea.showAlertAndAddText('Title is empty', 'danger');
+		}
+		if (author === '') {
+			return AlertArea.showAlertAndAddText('Author is empty', 'danger');
+		}
+		if (pages === '') {
+			return AlertArea.showAlertAndAddText('Pages is empty', 'danger');
+		}
+		if (isNaN(pages) === true) {
+			return AlertArea.showAlertAndAddText('Pages is not a number', 'danger');
 		} else {
 			//instantiate book
 			const book = new Book(title, author, pages);
 			//add book to ui
 			UI.addBookToList(book);
+			AlertArea.showAlertAndAddText('Book successfully added', 'success');
 			//clear fields
 			UI.clearFields();
 		}
