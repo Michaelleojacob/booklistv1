@@ -6,8 +6,8 @@
 
 # High Priority on:<br>Simple and sleek design<br>Mobile first focus
 
-# Highlight features:<br>This was an exercise in webpack.<br>Exporting and importing functionality and features as 'modules' between files is achieved as well.<br>Reusable, easy to read code.
+# Highlight features:<br>Class syntax and usage practice. LocalStorage practice. Also slight practice using webpack and modules.
 
-# Future additions:<br>Code refactor. I had some long repeating functions that could be cleaned up. Especially in menu.js
+# Future additions:<br>I'm going to completely remake the whole app. More modular, my solutions, new features.<br>This was a practice code-along. Now time to make my version. It will be called mybooklistv2.
 
 # Get in touch!:<br> michaelleojacob@gmail.com<br><a href="https://www.linkedin.com/public-profile/in/michael-leo-jacob" target="_blank">Linkedin</a><br><a href="https://https://github.com/Michaelleojacob" target="_blank">Github</a>
