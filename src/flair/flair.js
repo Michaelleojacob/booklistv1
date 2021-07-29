@@ -84,8 +84,7 @@ export default function myfooter() {
 				this.repoatag.target = '_blank';
 				this.repoatag.innerHTML = `<i class="far fa-file"></i> repo`;
 				this.repoatag.title = 'repo';
-				this.repoatag.href =
-					'https://github.com/Michaelleojacob/restaurantpage';
+				this.repoatag.href = 'https://github.com/Michaelleojacob/booklistv1';
 				this.socialwrapper.appendChild(this.repoatag);
 			},
 		};
